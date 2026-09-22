@@ -19,10 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
----
-
-Nota sobre terceros: este kit NO incluye ni relicencia a Graphify
-(https://github.com/safishamsi/graphify, MIT, de Safi Shamsi) ni a Wiki-Brain
-(https://github.com/tenfoldmarc/wiki-brain-skill, de @tenfoldmarc). Se instalan
-por separado desde sus propias fuentes y conservan sus propias licencias.

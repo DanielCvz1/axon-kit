@@ -67,7 +67,28 @@ historial, moverlo deja rastro.
 
 ---
 
+## Créditos, y por qué importan
+
+Dos de las cuatro piezas no son de este proyecto. Van aquí con nombre porque es lo correcto y
+porque a alguien le va a servir saber dónde buscar el original:
+
+| Pieza | Autor | Licencia | Dónde |
+|---|---|---|---|
+| **Graphify**, el grafo | Safi Shamsi | MIT | [safishamsi/graphify](https://github.com/safishamsi/graphify) · `pip install graphifyy` |
+| **Wiki-Brain**, el wiki | @tenfoldmarc | ver repo | [tenfoldmarc/wiki-brain-skill](https://github.com/tenfoldmarc/wiki-brain-skill) |
+
+Wiki-Brain está construido sobre el patrón de
+[LLM Wiki de Andrej Karpathy](https://gist.github.com/karpathy).
+
+**Este kit no los incluye ni los relicencia.** Se instalan desde su propia fuente, conservan su
+propia licencia y reciben sus propias actualizaciones. Si alguien te ofrece un "sistema de
+memoria con grafo" sin mencionar a ninguno de los dos, te está vendiendo trabajo de otro.
+
+Lo que sí es original de aquí: el ritual de sesión, el mecanismo de correcciones, FORGE y las
+plantillas de agentes.
+
+---
+
 ## Licencia
 
-MIT. Ver [LICENSE](LICENSE). Úsalo, cámbialo, véndelo si quieres. Lo único que no puedes hacer
-es reclamar que el grafo y el wiki son tuyos: no son míos tampoco.
+MIT. Ver [LICENSE](LICENSE). Úsalo, cámbialo, véndelo si quieres.
