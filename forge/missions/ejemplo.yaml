@@ -1,0 +1,72 @@
+# Misión de ejemplo. Corre tal cual: python -m runner.run missions/ejemplo.yaml
+#
+# Una misión es una pregunta con umbrales. Los umbrales viven AQUÍ, en un archivo bajo control
+# de versiones, y no en el código ni en la cabeza de nadie. Esa es la regla entera de FORGE:
+# no se puede aprobar redefiniendo lo que significa aprobar. Si mueves un umbral después de
+# fallar, queda un commit con tu nombre y la fecha.
+
+id: mi-primera-mision
+domain: ejemplo
+question: >
+  Con qué configuración el buscador encuentra lo correcto, no devuelve lo prohibido y se
+  calla cuando no hay nada que decir.
+
+# Cada configuración es una hipótesis. "actual" es la que crees correcta; las demás reproducen
+# el comportamiento que tenía el sistema ANTES de cada hallazgo. Si una corrida futura deja de
+# mostrar la diferencia, se rompió la medición, no el hallazgo.
+configurations:
+  actual:
+    usar_idf: true
+    frase_exacta: true
+  sin_idf:              # hallazgo: sin idf, "el" pesaba lo mismo que "tejado"
+    usar_idf: false
+    frase_exacta: true
+  sin_frase_exacta:     # hallazgo: la coincidencia literal no subía sobre las parciales
+    usar_idf: true
+    frase_exacta: false
+
+scenarios:
+  # --- válidos: hay una respuesta correcta y debe salir arriba
+  - id: tejado-caliente
+    kind: valido
+    query: "el gato duerme sobre el tejado caliente"
+    within_top: 1
+    expect: d1
+
+  - id: cartero
+    kind: valido
+    query: "cartero paquete vecino"
+    within_top: 2
+    expect: d5
+
+  # --- adversarial: una trampa. La consulta parece de un tema y no lo es.
+  - id: ruido-de-articulos
+    kind: adversarial
+    query: "el la el de"
+    within_top: 3
+    forbid: d3
+
+  # --- ambiguo: no hay respuesta única; lo correcto es no afirmar
+  - id: sin-coincidencia
+    kind: ambiguo
+    query: "submarino nuclear"
+    expect_empty: true
+
+# Nota honesta tras la primera corrida: `sin_frase_exacta` también pasa 4 de 4, o sea que
+# ningún escenario demuestra todavía que esa perilla sirva. Eso NO se arregla borrando la
+# configuración ni inventando un escenario que la favorezca: se escribe aquí, y se deja
+# pendiente hasta que aparezca un caso real que la justifique. Un banco de pruebas que solo
+# confirma lo que ya creías no mide nada.
+
+# Lo que esta medicion NO cubre. Se escribe a proposito: un reporte que no declara sus
+# limites se lee como si lo midiera todo.
+limits:
+  - "Mide el orden de los resultados, no si el contenido de cada uno es correcto."
+  - "Seis frases no son un corpus: sirven para aprender el mecanismo, no para concluir nada."
+  - "Ningun escenario usa datos reales."
+
+thresholds:
+  pass_rate_min: 1.0      # todos los escenarios, no "la mayoría"
+  worst_case_min: 1.0     # el PEOR escenario, no el promedio. Este es el umbral que importa.
+  latency_p95_max_s: 2.0
+  min_scenarios: 4        # menos que esto no es una medición, es una anécdota
